@@ -19,9 +19,9 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, cart }) 
 
   if (!isOpen) return null;
 
-  // CÁLCULOS DO BACKEND (SIMULADOS NO FRONTEND PARA AGILIDADE)
+  // CÁLCULOS DO BACKEND (SIMULADOS NO FRONTEND) - ALTERADO PARA 5%
   const subtotal = cart.reduce((acc, item) => acc + (item.numericPrice * item.quantity), 0);
-  const discount = formData.followedInstagram ? Math.round(subtotal * 0.10) : 0;
+  const discount = formData.followedInstagram ? Math.round(subtotal * 0.05) : 0;
   const total = subtotal - discount;
 
   const handleFinish = () => {
@@ -30,7 +30,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, cart }) 
       return;
     }
 
-    // FORMATAÇÃO DA MENSAGEM CONFORME O TEMPLATE SOLICITADO
+    // FORMATAÇÃO DA MENSAGEM COM DESCONTO DE 5%
     const itemLines = cart.map(i => `- ${i.quantity}x ${i.name} (${(i.numericPrice * i.quantity).toLocaleString()} Kz)`).join('\n');
     
     const message = `
@@ -47,7 +47,7 @@ ${formData.phone}
 ${itemLines}
 
 💰 Subtotal: ${subtotal.toLocaleString()} Kz
-🎁 Desconto Instagram: -${discount.toLocaleString()} Kz
+🎁 Desconto Instagram (5%): -${discount.toLocaleString()} Kz
 ✅ Total: ${total.toLocaleString()} Kz
 
 Obrigado!
@@ -110,6 +110,17 @@ Obrigado!
               <div className="mb-8">
                 <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6 border-b border-white/5 pb-4">Desconto Especial</h4>
                 
+                {/* Botão para visitar o Instagram */}
+                <a 
+                  href={CONTACT_INFO.instagram} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full mb-4 bg-white/5 border border-white/10 p-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-white/10 transition-all text-xs font-bold text-white uppercase tracking-widest"
+                >
+                  <i className="fa-brands fa-instagram text-gold text-lg"></i>
+                  Visitar Instagram
+                </a>
+
                 <button 
                   onClick={() => setFormData({...formData, followedInstagram: !formData.followedInstagram})}
                   className={`w-full p-4 rounded-2xl border transition-all flex items-center gap-4 text-left ${
@@ -118,12 +129,13 @@ Obrigado!
                     : 'bg-white/5 border-white/10 text-white hover:border-gold/50'
                   }`}
                 >
-                  <i className={`fa-brands fa-instagram text-2xl ${formData.followedInstagram ? 'text-black' : 'text-gold'}`}></i>
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-tighter">Sigo no Instagram</p>
-                    <p className="text-xs font-bold opacity-80">Ganhe 10% de desconto!</p>
+                  <div className={`w-5 h-5 rounded border flex items-center justify-center ${formData.followedInstagram ? 'border-black' : 'border-gray-500'}`}>
+                    {formData.followedInstagram && <i className="fa-solid fa-check text-[10px]"></i>}
                   </div>
-                  {formData.followedInstagram && <i className="fa-solid fa-check ml-auto"></i>}
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-tighter leading-none">Já sigo o Rei</p>
+                    <p className="text-[11px] font-bold opacity-80">Ativar Desconto de 5%</p>
+                  </div>
                 </button>
               </div>
 
@@ -134,7 +146,7 @@ Obrigado!
                 </div>
                 {formData.followedInstagram && (
                   <div className="flex justify-between text-xs text-gold font-bold">
-                    <span>Desconto (10%):</span>
+                    <span>Desconto (5%):</span>
                     <span>-{discount.toLocaleString()} Kz</span>
                   </div>
                 )}
