@@ -95,7 +95,7 @@ export const FEATURED_DISHES = [
     name: 'Frango Composto',
     price: '10.000 Kz',
     tag: 'Mais Popular',
-    image: 'https://images.unsplash.com/photo-1606728035253-49df5915eaef?q=80&w=800&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=800&auto=format&fit=crop'
   },
   {
     name: 'Hambúrguer Kombo',
