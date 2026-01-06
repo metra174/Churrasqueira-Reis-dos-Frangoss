@@ -23,7 +23,7 @@ const App: React.FC = () => {
       }
       return [...prev, { ...item, quantity: 1 }];
     });
-    setIsCartOpen(true);
+    // Não abrimos mais o drawer automaticamente para permitir escolha contínua
   };
 
   const removeFromCart = (name: string) => {
@@ -31,35 +31,62 @@ const App: React.FC = () => {
   };
 
   const updateQuantity = (name: string, delta: number) => {
-    setCart(prev => prev.map(i => {
-      if (i.name === name) {
-        const newQty = Math.max(1, i.quantity + delta);
-        return { ...i, quantity: newQty };
+    setCart(prev => {
+      const existing = prev.find(i => i.name === name);
+      if (!existing) return prev;
+      
+      const newQty = existing.quantity + delta;
+      if (newQty <= 0) {
+        return prev.filter(i => i.name !== name);
       }
-      return i;
-    }));
+      
+      return prev.map(i => i.name === name ? { ...i, quantity: newQty } : i);
+    });
   };
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalPrice = cart.reduce((acc, item) => acc + (item.numericPrice * item.quantity), 0);
 
   return (
-    <div className="relative min-h-screen bg-[#111] selection:bg-gold selection:text-black overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#111] selection:bg-gold selection:text-black overflow-x-hidden pb-24 lg:pb-0">
       <Header cartCount={totalItems} onOpenCart={() => setIsCartOpen(true)} />
       
       <main>
         <Hero />
-        
-        {/* Sugestões do Rei */}
         <FeaturedDishes />
-
-        {/* Nossa História */}
         <About />
-
-        {/* Menu Completo */}
-        <MenuSection onAddToCart={addToCart} />
+        <MenuSection 
+          cart={cart}
+          onUpdateQty={updateQuantity}
+          onAddToCart={addToCart} 
+        />
       </main>
 
       <Footer />
+
+      {/* Barra Flutuante de Pedido - Finalização Expressa */}
+      {cart.length > 0 && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[40] w-[90%] max-w-lg animate-fade-in-up">
+          <button 
+            onClick={() => setIsCheckoutOpen(true)}
+            className="w-full bg-gold text-black p-5 rounded-[2rem] flex items-center justify-between shadow-[0_20px_50px_rgba(212,175,55,0.3)] hover:scale-[1.02] active:scale-95 transition-all group"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-black/10 rounded-full flex items-center justify-center font-black">
+                {totalItems}
+              </div>
+              <div className="text-left">
+                <p className="text-[10px] font-black uppercase tracking-widest leading-none">Finalizar Pedido</p>
+                <p className="text-sm font-bold opacity-80">Reis dos Frangos</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="font-black text-xl">{totalPrice.toLocaleString()} Kz</span>
+              <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </button>
+        </div>
+      )}
 
       <CartDrawer 
         isOpen={isCartOpen} 
