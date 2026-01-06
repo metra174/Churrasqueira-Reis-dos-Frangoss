@@ -19,42 +19,38 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, cart }) 
 
   if (!isOpen) return null;
 
+  // CÁLCULOS DO BACKEND (SIMULADOS NO FRONTEND PARA AGILIDADE)
   const subtotal = cart.reduce((acc, item) => acc + (item.numericPrice * item.quantity), 0);
   const discount = formData.followedInstagram ? Math.round(subtotal * 0.10) : 0;
-  
-  const isMaianga = formData.location.toLowerCase().includes('maianga');
-  const deliveryFee = isMaianga ? 1000 : 0;
-  const total = subtotal - discount + deliveryFee;
+  const total = subtotal - discount;
 
   const handleFinish = () => {
     if (!formData.location || !formData.phone) {
-      alert("Por favor, preencha a localização e o telefone para continuar.");
+      alert("📍 Por favor, informe sua localização e telefone para o Rei entregar!");
       return;
     }
 
+    // FORMATAÇÃO DA MENSAGEM CONFORME O TEMPLATE SOLICITADO
     const itemLines = cart.map(i => `- ${i.quantity}x ${i.name} (${(i.numericPrice * i.quantity).toLocaleString()} Kz)`).join('\n');
-    const deliveryDisplay = isMaianga ? `${deliveryFee.toLocaleString()} Kz` : "Valor negociável";
     
-    // MENSAGEM FORMATADA CONFORME SOLICITADO
     const message = `
 🍗 *PEDIDO – REIS DOS FRANGOS*
 
-📍 *Localização:*
+📍 Localização:
 ${formData.location}
-*Ref:* ${formData.reference || 'N/A'}
+${formData.reference ? `Ref: ${formData.reference}` : ''}
 
-📞 *Telefone:*
+📞 Telefone:
 ${formData.phone}
 
-🧾 *Pedido:*
+🧾 Pedido:
 ${itemLines}
 
-💰 *Subtotal:* ${subtotal.toLocaleString()} Kz
-🎁 *Desconto Instagram (10%):* -${discount.toLocaleString()} Kz
-🚚 *Taxa de Entrega:* ${deliveryDisplay}
-✅ *TOTAL:* ${total.toLocaleString()} Kz ${!isMaianga ? '(+ taxa a combinar)' : ''}
+💰 Subtotal: ${subtotal.toLocaleString()} Kz
+🎁 Desconto Instagram: -${discount.toLocaleString()} Kz
+✅ Total: ${total.toLocaleString()} Kz
 
-_Obrigado pelo seu pedido!_
+Obrigado!
     `.trim();
 
     const encodedMessage = encodeURIComponent(message);
@@ -65,105 +61,96 @@ _Obrigado pelo seu pedido!_
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" onClick={onClose}></div>
       
-      <div className="relative bg-[#0a0a0a] border border-white/5 w-full max-w-2xl rounded-[2.5rem] overflow-hidden shadow-[0_0_100px_rgba(212,175,55,0.1)] animate-fade-in-up">
+      <div className="relative bg-[#0a0a0a] border border-white/5 w-full max-w-2xl rounded-[2.5rem] overflow-hidden shadow-[0_0_100px_rgba(212,175,55,0.15)] animate-fade-in-up">
         <div className="p-8 md:p-12">
           <button onClick={onClose} className="absolute top-6 right-6 text-gray-500 hover:text-gold transition-colors">
             <i className="fa-solid fa-xmark text-2xl"></i>
           </button>
 
-          <span className="text-gold font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">Finalizar Pedido Real</span>
-          <h2 className="font-display text-3xl md:text-4xl text-white mb-8">Dados de Entrega</h2>
+          <span className="text-gold font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">Fluxo de Pedido Real</span>
+          <h2 className="font-display text-3xl md:text-4xl text-white mb-8">Dados do Cliente</h2>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-10">
+            {/* Formulário */}
             <div className="space-y-6">
               <div>
-                <label className="block text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-2">Bairro e Rua</label>
+                <label className="block text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-2">Bairro / Rua</label>
                 <input 
                   type="text" 
-                  placeholder="Ex: Maianga, Rua X..."
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-gold outline-none transition-all placeholder:text-white/20"
+                  placeholder="Ex: Maianga, Rua da Missão..."
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:border-gold outline-none transition-all placeholder:text-white/10"
                   value={formData.location}
                   onChange={(e) => setFormData({...formData, location: e.target.value})}
                 />
               </div>
               <div>
-                <label className="block text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-2">Ponto de Referência</label>
+                <label className="block text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-2">Referência (Opcional)</label>
                 <input 
                   type="text" 
-                  placeholder="Próximo à escola..."
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-gold outline-none transition-all placeholder:text-white/20"
+                  placeholder="Próximo ao colégio..."
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:border-gold outline-none transition-all placeholder:text-white/10"
                   value={formData.reference}
                   onChange={(e) => setFormData({...formData, reference: e.target.value})}
                 />
               </div>
               <div>
-                <label className="block text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-2">Número de Telefone</label>
+                <label className="block text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-2">Telefone de Contato</label>
                 <input 
                   type="tel" 
-                  placeholder="932 815 377"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-gold outline-none transition-all placeholder:text-white/20"
+                  placeholder="9XX XXX XXX"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:border-gold outline-none transition-all placeholder:text-white/10"
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
                 />
               </div>
             </div>
 
-            <div className="bg-white/5 p-6 rounded-3xl border border-white/5 flex flex-col justify-between">
-              <div>
-                {/* LÓGICA DE DESCONTO INSTAGRAM */}
-                <label className="flex items-start gap-4 cursor-pointer group mb-6 bg-gold/5 p-4 rounded-2xl border border-gold/10 hover:border-gold/30 transition-all">
-                  <div className="mt-1">
-                    <input 
-                      type="checkbox" 
-                      className="hidden"
-                      checked={formData.followedInstagram}
-                      onChange={(e) => setFormData({...formData, followedInstagram: e.target.checked})}
-                    />
-                    <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${formData.followedInstagram ? 'bg-gold border-gold shadow-[0_0_10px_rgba(212,175,55,0.5)]' : 'border-white/20'}`}>
-                      {formData.followedInstagram && <i className="fa-solid fa-check text-black text-xs"></i>}
-                    </div>
-                  </div>
-                  <div>
-                    <span className="block text-white font-bold text-sm">Sigo no Instagram</span>
-                    <span className="text-[9px] text-gold uppercase font-black tracking-widest">Ativar Desconto de 10%</span>
-                  </div>
-                </label>
-
-                <div className="space-y-3 pt-4 border-t border-white/5">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Subtotal:</span>
-                    <span className="text-white font-bold">{subtotal.toLocaleString()} Kz</span>
-                  </div>
-                  {discount > 0 && (
-                    <div className="flex justify-between text-sm text-gold">
-                      <span>Desconto Real:</span>
-                      <span>-{discount.toLocaleString()} Kz</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Taxa:</span>
-                    <span className="text-white font-bold italic">
-                      {isMaianga ? `+${deliveryFee.toLocaleString()} Kz` : "A combinar"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Total</span>
-                  <div className="text-right">
-                    <span className="text-4xl text-gold font-black block leading-none">{total.toLocaleString()} Kz</span>
-                  </div>
-                </div>
+            {/* Resumo e Lógica de Desconto */}
+            <div className="bg-white/[0.02] p-8 rounded-3xl border border-white/5 flex flex-col">
+              <div className="mb-8">
+                <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-6 border-b border-white/5 pb-4">Desconto Especial</h4>
+                
                 <button 
-                  onClick={handleFinish}
-                  className="w-full bg-gold text-black py-5 rounded-2xl font-black uppercase text-xs tracking-[0.2em] hover:bg-white hover:scale-[1.02] transition-all flex items-center justify-center gap-3 shadow-[0_15px_30px_rgba(212,175,55,0.2)]"
+                  onClick={() => setFormData({...formData, followedInstagram: !formData.followedInstagram})}
+                  className={`w-full p-4 rounded-2xl border transition-all flex items-center gap-4 text-left ${
+                    formData.followedInstagram 
+                    ? 'bg-gold border-gold text-black shadow-[0_0_20px_rgba(212,175,55,0.3)]' 
+                    : 'bg-white/5 border-white/10 text-white hover:border-gold/50'
+                  }`}
                 >
-                  <i className="fa-brands fa-whatsapp text-lg"></i>
-                  Enviar Pedido
+                  <i className={`fa-brands fa-instagram text-2xl ${formData.followedInstagram ? 'text-black' : 'text-gold'}`}></i>
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-tighter">Sigo no Instagram</p>
+                    <p className="text-xs font-bold opacity-80">Ganhe 10% de desconto!</p>
+                  </div>
+                  {formData.followedInstagram && <i className="fa-solid fa-check ml-auto"></i>}
                 </button>
               </div>
+
+              <div className="space-y-3 mb-8">
+                <div className="flex justify-between text-xs text-gray-400">
+                  <span>Subtotal:</span>
+                  <span>{subtotal.toLocaleString()} Kz</span>
+                </div>
+                {formData.followedInstagram && (
+                  <div className="flex justify-between text-xs text-gold font-bold">
+                    <span>Desconto (10%):</span>
+                    <span>-{discount.toLocaleString()} Kz</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-xl font-black text-white pt-4 border-t border-white/5">
+                  <span>Total:</span>
+                  <span className="text-gold">{total.toLocaleString()} Kz</span>
+                </div>
+              </div>
+
+              <button 
+                onClick={handleFinish}
+                className="mt-auto w-full bg-gold text-black py-5 rounded-2xl font-black uppercase text-xs tracking-[0.2em] hover:bg-white hover:scale-[1.03] transition-all flex items-center justify-center gap-3 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+              >
+                <i className="fa-brands fa-whatsapp text-lg"></i>
+                Confirmar no WhatsApp
+              </button>
             </div>
           </div>
         </div>

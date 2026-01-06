@@ -5,12 +5,12 @@ import { CONTACT_INFO } from '../constants';
 const Hero: React.FC = () => {
   return (
     <section id="inicio" className="h-screen relative flex items-center justify-center overflow-hidden bg-black">
-      {/* Imagem de Fundo Premium - Sem distorções ou elementos fantasmas */}
+      {/* Imagem de Fundo Premium - Atualizada para uma estética mais impactante */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img 
-          src="https://images.unsplash.com/photo-1594221708779-9482d5938146?q=80&w=1920&auto=format&fit=crop" 
-          alt="Frango Grelhado Suculento"
-          className="w-full h-full object-cover brightness-[0.5]"
+          src="https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?q=80&w=1920&auto=format&fit=crop" 
+          alt="Frango Assado Real"
+          className="w-full h-full object-cover brightness-[0.4] scale-105 animate-slow-zoom"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
       </div>

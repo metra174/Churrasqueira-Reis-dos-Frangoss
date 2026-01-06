@@ -56,8 +56,15 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes slow-zoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
         .animate-fade-in-up {
             animation: fade-in-up 0.8s ease-out forwards;
+        }
+        .animate-slow-zoom {
+            animation: slow-zoom 20s ease-in-out infinite alternate;
         }
     </style>
 <script type="importmap">

@@ -14,9 +14,10 @@ const About: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center gap-20">
           <div className="lg:w-1/2 relative">
             <div className="relative z-10 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-gray-800">
+              {/* Imagem Atualizada para evitar erro de carregamento */}
               <img 
-                src="https://images.unsplash.com/photo-1598214817158-54278794838b?auto=format&fit=crop&w=1000&q=80" 
-                alt="Arte de Cozinhar" 
+                src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=1000&auto=format&fit=crop" 
+                alt="A Arte do Churrasco" 
                 className="w-full h-[600px] object-cover transition-all duration-700 brightness-90 hover:brightness-110"
               />
             </div>
