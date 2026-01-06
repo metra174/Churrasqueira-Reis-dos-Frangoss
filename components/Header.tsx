@@ -28,12 +28,12 @@ const Header: React.FC<HeaderProps> = ({ cartCount, onOpenCart }) => {
 
         <nav className="hidden xl:flex items-center gap-6">
           <a href="#inicio" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-gold transition-colors">Início</a>
-          <a href="#entrega" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-gold transition-colors">Entrega</a>
           {MENU_DATA.map(cat => (
             <a key={cat.id} href={`#${cat.id}`} className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-gold transition-colors whitespace-nowrap">
               {cat.title}
             </a>
           ))}
+          <a href="#contato" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-gold transition-colors">Contato</a>
         </nav>
 
         <div className="flex items-center gap-4">

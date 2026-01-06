@@ -89,19 +89,19 @@ export const FEATURED_DISHES = [
     name: 'Frango Inteiro',
     price: '12.000 Kz',
     tag: 'Favorito do Rei',
-    image: 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80'
+    image: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?q=80&w=800&auto=format&fit=crop'
   },
   {
     name: 'Frango Composto',
     price: '10.000 Kz',
     tag: 'Mais Popular',
-    image: 'https://images.unsplash.com/photo-1606728035253-49df5915eaef?auto=format&fit=crop&w=800&q=80'
+    image: 'https://images.unsplash.com/photo-1606728035253-49df5915eaef?q=80&w=800&auto=format&fit=crop'
   },
   {
     name: 'Hambúrguer Kombo',
     price: '8.500 Kz',
     tag: 'Melhor Valor',
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80'
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop'
   }
 ];
 

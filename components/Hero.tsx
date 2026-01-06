@@ -15,7 +15,16 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-6 text-center z-10 relative">
-        <span className="text-gold font-bold tracking-[0.4em] uppercase text-xs mb-6 block animate-fade-in-up">
+        {/* Banner de Entrega Flutuante */}
+        <div className="mb-12 animate-fade-in-up">
+           <div className="inline-flex items-center gap-3 px-6 py-2 border border-gold/30 rounded-full bg-black/60 backdrop-blur-md">
+             <span className="text-[10px] text-white/80 font-bold tracking-widest uppercase">
+               🚚 Taxa Maianga: <span className="text-gold">{CONTACT_INFO.delivery.maianga}</span> | Outros: <span className="text-gold">{CONTACT_INFO.delivery.others}</span>
+             </span>
+           </div>
+        </div>
+
+        <span className="text-gold font-bold tracking-[0.4em] uppercase text-xs mb-6 block animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           A Nobreza da Brasa em Luanda
         </span>
         <h1 className="font-display text-6xl md:text-8xl lg:text-9xl text-white mb-8 leading-tight animate-fade-in-up" style={{ animationDelay: '0.2s' }}>

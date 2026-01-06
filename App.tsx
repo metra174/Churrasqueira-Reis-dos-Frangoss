@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import MenuSection from './components/MenuSection';
-import DeliverySection from './components/DeliverySection';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import CheckoutModal from './components/CheckoutModal';
+import FeaturedDishes from './components/FeaturedDishes';
 import { CartItem, MenuItem } from './types';
 
 const App: React.FC = () => {
@@ -42,16 +42,16 @@ const App: React.FC = () => {
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="relative min-h-screen bg-black selection:bg-primary-red selection:text-white overflow-x-hidden">
+    <div className="relative min-h-screen bg-black selection:bg-gold selection:text-black overflow-x-hidden">
       <Header cartCount={totalItems} onOpenCart={() => setIsCartOpen(true)} />
       
       <main>
         <Hero />
         
-        {/* Seção de Entrega com Mapa Interativo e Vidro Translúcido */}
-        <DeliverySection />
+        {/* Destaques do Menu */}
+        <FeaturedDishes />
 
-        {/* Cada categoria do menu agora é uma seção Hero imersiva */}
+        {/* Cada categoria do menu como uma seção imersiva */}
         <MenuSection onAddToCart={addToCart} />
       </main>
 

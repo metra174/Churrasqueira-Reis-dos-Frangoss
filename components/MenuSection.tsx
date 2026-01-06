@@ -52,12 +52,12 @@ const CategoryBlock: React.FC<{ category: MenuCategory, onAddToCart: (item: Menu
       className="absolute inset-0 bg-cover bg-center bg-fixed"
       style={{ 
         backgroundImage: `url('${CATEGORY_IMAGES[category.id] || CATEGORY_IMAGES.entradas_frangos}')`,
-        filter: 'brightness(0.2) saturate(1.1)'
+        filter: 'brightness(0.35) saturate(1.1)'
       }}
     ></div>
     
     <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"></div>
-    <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]"></div>
+    <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]"></div>
 
     <div className="container mx-auto px-6 max-w-5xl relative z-10">
       <div className="text-center mb-16 animate-fade-in-up">
@@ -68,12 +68,12 @@ const CategoryBlock: React.FC<{ category: MenuCategory, onAddToCart: (item: Menu
           {category.title}
         </h2>
         <div className="menu-underline !w-24 !h-1.5 shadow-[0_0_20px_rgba(212,175,55,0.3)]"></div>
-        <p className="text-gray-400 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto mt-8">
+        <p className="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto mt-8 drop-shadow-md">
           {category.description}
         </p>
       </div>
 
-      <div className="solid-panel p-4 md:p-12 rounded-[3rem] shadow-3xl bg-black/80">
+      <div className="solid-panel p-4 md:p-12 rounded-[3rem] shadow-3xl bg-black/90">
         <div className="grid gap-2">
           {category.items.map((item, idx) => (
             <MenuItemRow key={idx} item={item} onAdd={onAddToCart} />

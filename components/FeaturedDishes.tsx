@@ -5,12 +5,11 @@ import { FEATURED_DISHES, CONTACT_INFO } from '../constants';
 const FeaturedDishes: React.FC = () => {
   return (
     <section className="py-24 relative overflow-hidden border-t border-gray-900 bg-black">
-      {/* Cinematic Background */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-fixed opacity-15 pointer-events-none"
+        className="absolute inset-0 bg-cover bg-center bg-fixed opacity-5 pointer-events-none"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1920&q=80')" }}
       ></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/95 to-black"></div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
@@ -21,15 +20,20 @@ const FeaturedDishes: React.FC = () => {
 
         <div className="grid md:grid-cols-3 gap-10">
           {FEATURED_DISHES.map((dish, index) => (
-            <div key={index} className="group bg-dark-800/60 backdrop-blur-xl rounded-2xl overflow-hidden border border-gray-800 hover:border-gold transition-all duration-500 shadow-2xl">
-              <div className="relative h-64 overflow-hidden">
+            <div key={index} className="group bg-dark-800/40 backdrop-blur-md rounded-2xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-500 shadow-2xl">
+              <div className="relative h-64 overflow-hidden bg-zinc-900">
                 <img 
                   src={dish.image} 
                   alt={dish.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80';
+                  }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-800/80 to-transparent"></div>
-                <span className="absolute top-4 left-4 bg-gold text-black text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <span className="absolute top-4 left-4 bg-gold text-black text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded shadow-lg z-10">
                   {dish.tag}
                 </span>
               </div>
@@ -39,7 +43,7 @@ const FeaturedDishes: React.FC = () => {
                   <span className="text-gold font-bold text-xl">{dish.price}</span>
                   <a 
                     href={`https://wa.me/${CONTACT_INFO.whatsapp}`}
-                    className="w-10 h-10 bg-white/5 border border-gray-700 rounded-full flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-all"
+                    className="w-10 h-10 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-all"
                   >
                     <i className="fa-solid fa-plus"></i>
                   </a>
