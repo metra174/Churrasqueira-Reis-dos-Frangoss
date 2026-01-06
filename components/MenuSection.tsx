@@ -47,33 +47,33 @@ const MenuItemRow: React.FC<{ item: MenuItem, onAdd: (item: MenuItem) => void }>
 );
 
 const CategoryBlock: React.FC<{ category: MenuCategory, onAddToCart: (item: MenuItem) => void }> = ({ category, onAddToCart }) => (
-  <section id={category.id} className="relative min-h-screen flex flex-col items-center justify-center py-32 overflow-hidden border-b border-white/5">
+  <section id={category.id} className="relative min-h-screen flex flex-col items-center justify-center py-32 overflow-hidden border-b border-white/5 bg-[#111]">
     <div 
       className="absolute inset-0 bg-cover bg-center bg-fixed"
       style={{ 
         backgroundImage: `url('${CATEGORY_IMAGES[category.id] || CATEGORY_IMAGES.entradas_frangos}')`,
-        filter: 'brightness(0.55) saturate(1.2)'
+        filter: 'brightness(0.5) saturate(1.2)'
       }}
     ></div>
     
-    <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"></div>
-    <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>
+    <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80"></div>
+    <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]"></div>
 
     <div className="container mx-auto px-6 max-w-5xl relative z-10">
       <div className="text-center mb-16 animate-fade-in-up">
-        <span className="text-gold font-bold uppercase tracking-[0.5em] text-[10px] bg-black/70 px-6 py-2 rounded-full border border-white/10 mb-6 inline-block backdrop-blur-md">
+        <span className="text-gold font-bold uppercase tracking-[0.5em] text-[10px] bg-black/80 px-6 py-2 rounded-full border border-gold/30 mb-6 inline-block backdrop-blur-md">
           REIS NO SABOR
         </span>
-        <h2 className="font-display text-5xl md:text-8xl text-white mb-6 drop-shadow-2xl">
+        <h2 className="font-display text-5xl md:text-8xl text-white mb-6 drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)]">
           {category.title}
         </h2>
-        <div className="menu-underline !w-24 !h-1.5 shadow-[0_0_20px_rgba(212,175,55,0.6)]"></div>
-        <p className="text-white text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto mt-8 drop-shadow-lg bg-black/20 p-4 rounded-xl backdrop-blur-sm">
+        <div className="menu-underline !w-24 !h-1.5 shadow-[0_0_20px_rgba(212,175,55,0.7)]"></div>
+        <p className="text-white text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto mt-8 drop-shadow-lg bg-black/40 p-4 rounded-xl backdrop-blur-sm border border-white/5">
           {category.description}
         </p>
       </div>
 
-      <div className="solid-panel p-4 md:p-12 rounded-[3rem] shadow-3xl bg-black/80">
+      <div className="solid-panel p-4 md:p-12 rounded-[3rem] shadow-3xl bg-zinc-900/95 border-gold/10">
         <div className="grid gap-2">
           {category.items.map((item, idx) => (
             <MenuItemRow key={idx} item={item} onAdd={onAddToCart} />
@@ -86,7 +86,7 @@ const CategoryBlock: React.FC<{ category: MenuCategory, onAddToCart: (item: Menu
 
 const MenuSection: React.FC<{ onAddToCart: (item: MenuItem) => void }> = ({ onAddToCart }) => {
   return (
-    <div id="cardapio" className="bg-black">
+    <div id="cardapio" className="bg-[#111]">
       {MENU_DATA.map((category) => (
         <CategoryBlock key={category.id} category={category} onAddToCart={onAddToCart} />
       ))}

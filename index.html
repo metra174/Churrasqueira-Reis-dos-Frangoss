@@ -12,14 +12,13 @@
         body {
             font-family: 'Poppins', sans-serif;
             scroll-behavior: smooth;
-            background-color: #0a0a0a;
+            background-color: #111111;
             color: #ffffff;
             -webkit-font-smoothing: antialiased;
         }
         .font-display {
             font-family: 'Playfair Display', serif;
         }
-        /* Tema: Dourado (Amarelo) e Cinza */
         .text-gold {
             color: #d4af37;
         }
@@ -29,15 +28,11 @@
         .border-gold {
             border-color: #d4af37;
         }
-        .text-primary-gray {
-            color: #9ca3af;
-        }
-
-        .bg-dark-900 { background-color: #0a0a0a; }
+        .bg-dark-900 { background-color: #111111; }
         .bg-dark-800 { background-color: #1a1a1a; }
         
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-track { background: #111111; }
         ::-webkit-scrollbar-thumb {
             background: #d4af37;
             border-radius: 4px;
@@ -53,10 +48,16 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        /* Painel menos translúcido, mais sólido/escuro conforme nova orientação */
         .solid-panel {
-            background: rgba(15, 15, 15, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(26, 26, 26, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fade-in-up 0.8s ease-out forwards;
         }
     </style>
 <script type="importmap">

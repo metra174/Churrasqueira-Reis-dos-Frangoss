@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import MenuSection from './components/MenuSection';
+import About from './components/About';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import CheckoutModal from './components/CheckoutModal';
@@ -42,16 +43,19 @@ const App: React.FC = () => {
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="relative min-h-screen bg-black selection:bg-gold selection:text-black overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#111] selection:bg-gold selection:text-black overflow-x-hidden">
       <Header cartCount={totalItems} onOpenCart={() => setIsCartOpen(true)} />
       
       <main>
         <Hero />
         
-        {/* Destaques do Menu */}
+        {/* Sugestões do Rei */}
         <FeaturedDishes />
 
-        {/* Cada categoria do menu como uma seção imersiva */}
+        {/* Nossa História */}
+        <About />
+
+        {/* Menu Completo */}
         <MenuSection onAddToCart={addToCart} />
       </main>
 
