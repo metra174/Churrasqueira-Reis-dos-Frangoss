@@ -4,7 +4,7 @@ import { MenuCategory } from './types';
 export const MENU_DATA: MenuCategory[] = [
   {
     id: 'entradas_frangos',
-    title: 'Entradas & Frangos',
+    title: '🍗 Entradas & Frangos',
     description: 'O sabor autêntico da brasa, temperado com a nossa tradição real.',
     icon: 'fa-fire',
     items: [
@@ -18,9 +18,9 @@ export const MENU_DATA: MenuCategory[] = [
   },
   {
     id: 'compostos',
-    title: 'Pratos Compostos',
-    description: 'Refeições completas e generosas, pensadas para os verdadeiros reis da mesa.',
-    icon: 'fa-plate-wheat',
+    title: '⭐ Pratos Compostos',
+    description: 'Nossas estrelas. Refeições completas e generosas para os reis da mesa.',
+    icon: 'fa-star',
     items: [
       { name: 'Frango Composto', price: '10.000 Kz', numericPrice: 10000, description: 'Meio frango, batata frita, arroz e feijão.', popular: true },
       { name: 'Bitoque de Frango', price: '9.500 Kz', numericPrice: 9500, description: 'Bife de frango, ovo, batata frita e arroz de cenoura.' },
@@ -30,18 +30,18 @@ export const MENU_DATA: MenuCategory[] = [
   },
   {
     id: 'peixes',
-    title: 'Peixes Grelhados',
+    title: '🐟 Peixes Grelhados',
     description: 'O frescor do mar encontra o calor da brasa.',
     icon: 'fa-fish',
     items: [
-      { name: 'Peixe Grelhado', price: '7.000 Kz', numericPrice: 7000, description: 'Carapau or corvina with molho vinagrete.' },
-      { name: 'Peixe Composto', price: '10.500 Kz', numericPrice: 10500, description: 'Carapau or corvina with legumes salteados, ovo fervido and batata rena.', popular: true },
+      { name: 'Peixe Grelhado', price: '7.000 Kz', numericPrice: 7000, description: 'Carapau ou corvina com molho vinagrete.' },
+      { name: 'Peixe Composto', price: '10.500 Kz', numericPrice: 10500, description: 'Carapau ou corvina com legumes salteados, ovo fervido e batata rena.', popular: true },
     ]
   },
   {
     id: 'hamburgueres',
-    title: 'Hambúrgueres & Saladas',
-    description: 'Artesanais, suculentos e preparados com ingredientes frescos selecionados.',
+    title: '🍔 Hambúrgueres & Saladas',
+    description: 'Artesanais e frescos. Uma explosão de sabores em cada mordida.',
     icon: 'fa-hamburger',
     items: [
       { name: 'Hambúrguer de Frango', price: '4.500 Kz', numericPrice: 4500, description: 'Pão, queijo, carne de frango, molhos, tomate, bacon, alface e batata frita.' },
@@ -54,8 +54,8 @@ export const MENU_DATA: MenuCategory[] = [
   },
   {
     id: 'guarnicoes',
-    title: 'Guarnições & Molhos',
-    description: 'Os acompanhamentos perfeitos para elevar a sua experiência gastronómica.',
+    title: '🍚 Guarnições & Molhos',
+    description: 'Acompanhamentos perfeitos para elevar o seu prato.',
     icon: 'fa-bowl-rice',
     items: [
       { name: 'Arroz Branco', price: '400 Kz', numericPrice: 400 },
@@ -74,9 +74,9 @@ export const MENU_DATA: MenuCategory[] = [
   },
   {
     id: 'sopas',
-    title: 'Sopas',
+    title: '🍲 Sopas',
     description: 'Conforto e nutrição em cada colherada.',
-    icon: 'fa-bowl-hot',
+    icon: 'fa-spoon',
     items: [
       { name: 'Sopa de Legumes', price: '2.500 Kz', numericPrice: 2500 },
       { name: 'Sopa de Feijão', price: '3.950 Kz', numericPrice: 3950 },
@@ -95,13 +95,13 @@ export const FEATURED_DISHES = [
     name: 'Frango Composto',
     price: '10.000 Kz',
     tag: 'Mais Popular',
-    image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=800&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1606728035253-49df5915eaef?q=80&w=800&auto=format&fit=crop'
   },
   {
-    name: 'Hambúrguer Kombo',
-    price: '8.500 Kz',
-    tag: 'Melhor Valor',
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop'
+    name: 'Asinhas BBQ',
+    price: '5.500 Kz',
+    tag: 'Destaque',
+    image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?q=80&w=800&auto=format&fit=crop'
   }
 ];
 

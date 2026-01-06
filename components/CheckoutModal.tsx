@@ -20,7 +20,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, cart }) 
   if (!isOpen) return null;
 
   const subtotal = cart.reduce((acc, item) => acc + (item.numericPrice * item.quantity), 0);
-  const discount = formData.followedInstagram ? subtotal * 0.10 : 0;
+  const discount = formData.followedInstagram ? Math.round(subtotal * 0.10) : 0;
   
   const isMaianga = formData.location.toLowerCase().includes('maianga');
   const deliveryFee = isMaianga ? 1000 : 0;
@@ -28,21 +28,25 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, cart }) 
 
   const handleFinish = () => {
     if (!formData.location || !formData.phone) {
-      alert("Por favor, preencha a localização e o telefone.");
+      alert("Por favor, preencha a localização e o telefone para continuar.");
       return;
     }
 
-    const itemLines = cart.map(i => `🍗 ${i.quantity}x ${i.name} (${(i.numericPrice * i.quantity).toLocaleString()} Kz)`).join('\n');
-    const deliveryDisplay = isMaianga ? `${deliveryFee.toLocaleString()} Kz` : CONTACT_INFO.delivery.others;
+    const itemLines = cart.map(i => `- ${i.quantity}x ${i.name} (${(i.numericPrice * i.quantity).toLocaleString()} Kz)`).join('\n');
+    const deliveryDisplay = isMaianga ? `${deliveryFee.toLocaleString()} Kz` : "Valor negociável";
     
+    // MENSAGEM FORMATADA CONFORME SOLICITADO
     const message = `
-🍗 *PEDIDO REAL – REIS DOS FRANGOS*
+🍗 *PEDIDO – REIS DOS FRANGOS*
 
-📍 *Localização:* ${formData.location}
-🏠 *Referência:* ${formData.reference || 'N/A'}
-📞 *Telefone:* ${formData.phone}
+📍 *Localização:*
+${formData.location}
+*Ref:* ${formData.reference || 'N/A'}
 
-🧾 *Itens:*
+📞 *Telefone:*
+${formData.phone}
+
+🧾 *Pedido:*
 ${itemLines}
 
 💰 *Subtotal:* ${subtotal.toLocaleString()} Kz
@@ -61,23 +65,23 @@ _Obrigado pelo seu pedido!_
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" onClick={onClose}></div>
       
-      <div className="relative solid-panel w-full max-w-2xl rounded-[2.5rem] overflow-hidden shadow-3xl animate-fade-in-up border-gold/10">
-        <div className="p-8 md:p-12 bg-[#0a0a0a]">
+      <div className="relative bg-[#0a0a0a] border border-white/5 w-full max-w-2xl rounded-[2.5rem] overflow-hidden shadow-[0_0_100px_rgba(212,175,55,0.1)] animate-fade-in-up">
+        <div className="p-8 md:p-12">
           <button onClick={onClose} className="absolute top-6 right-6 text-gray-500 hover:text-gold transition-colors">
             <i className="fa-solid fa-xmark text-2xl"></i>
           </button>
 
-          <span className="text-gold font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">Finalizar Pedido</span>
+          <span className="text-gold font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">Finalizar Pedido Real</span>
           <h2 className="font-display text-3xl md:text-4xl text-white mb-8">Dados de Entrega</h2>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-6">
               <div>
-                <label className="block text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-2">Localização (Bairro)</label>
+                <label className="block text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-2">Bairro e Rua</label>
                 <input 
                   type="text" 
-                  placeholder="Ex: Maianga, Alvalade..."
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-gold outline-none transition-all"
+                  placeholder="Ex: Maianga, Rua X..."
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-gold outline-none transition-all placeholder:text-white/20"
                   value={formData.location}
                   onChange={(e) => setFormData({...formData, location: e.target.value})}
                 />
@@ -86,8 +90,8 @@ _Obrigado pelo seu pedido!_
                 <label className="block text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-2">Ponto de Referência</label>
                 <input 
                   type="text" 
-                  placeholder="Ex: Próximo à Escola..."
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-gold outline-none transition-all"
+                  placeholder="Próximo à escola..."
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-gold outline-none transition-all placeholder:text-white/20"
                   value={formData.reference}
                   onChange={(e) => setFormData({...formData, reference: e.target.value})}
                 />
@@ -96,8 +100,8 @@ _Obrigado pelo seu pedido!_
                 <label className="block text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-2">Número de Telefone</label>
                 <input 
                   type="tel" 
-                  placeholder="9XX XXX XXX"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-gold outline-none transition-all"
+                  placeholder="932 815 377"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-gold outline-none transition-all placeholder:text-white/20"
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
                 />
@@ -106,7 +110,8 @@ _Obrigado pelo seu pedido!_
 
             <div className="bg-white/5 p-6 rounded-3xl border border-white/5 flex flex-col justify-between">
               <div>
-                <label className="flex items-start gap-4 cursor-pointer group mb-6">
+                {/* LÓGICA DE DESCONTO INSTAGRAM */}
+                <label className="flex items-start gap-4 cursor-pointer group mb-6 bg-gold/5 p-4 rounded-2xl border border-gold/10 hover:border-gold/30 transition-all">
                   <div className="mt-1">
                     <input 
                       type="checkbox" 
@@ -114,31 +119,31 @@ _Obrigado pelo seu pedido!_
                       checked={formData.followedInstagram}
                       onChange={(e) => setFormData({...formData, followedInstagram: e.target.checked})}
                     />
-                    <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${formData.followedInstagram ? 'bg-gold border-gold' : 'border-white/20'}`}>
+                    <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${formData.followedInstagram ? 'bg-gold border-gold shadow-[0_0_10px_rgba(212,175,55,0.5)]' : 'border-white/20'}`}>
                       {formData.followedInstagram && <i className="fa-solid fa-check text-black text-xs"></i>}
                     </div>
                   </div>
                   <div>
-                    <span className="block text-white font-bold text-sm">Sigo o Instagram</span>
-                    <span className="text-[10px] text-gold uppercase font-bold tracking-widest">Ganhar 10% Desconto</span>
+                    <span className="block text-white font-bold text-sm">Sigo no Instagram</span>
+                    <span className="text-[9px] text-gold uppercase font-black tracking-widest">Ativar Desconto de 10%</span>
                   </div>
                 </label>
 
-                <div className="space-y-3 pt-6 border-t border-white/5">
+                <div className="space-y-3 pt-4 border-t border-white/5">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Subtotal</span>
+                    <span className="text-gray-500">Subtotal:</span>
                     <span className="text-white font-bold">{subtotal.toLocaleString()} Kz</span>
                   </div>
                   {discount > 0 && (
-                    <div className="flex justify-between text-sm text-green-500">
-                      <span>Desconto (10%)</span>
+                    <div className="flex justify-between text-sm text-gold">
+                      <span>Desconto Real:</span>
                       <span>-{discount.toLocaleString()} Kz</span>
                     </div>
                   )}
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Taxa de Entrega</span>
+                    <span className="text-gray-500">Taxa:</span>
                     <span className="text-white font-bold italic">
-                      {isMaianga ? `+${deliveryFee.toLocaleString()} Kz` : CONTACT_INFO.delivery.others}
+                      {isMaianga ? `+${deliveryFee.toLocaleString()} Kz` : "A combinar"}
                     </span>
                   </div>
                 </div>
@@ -146,17 +151,17 @@ _Obrigado pelo seu pedido!_
 
               <div className="mt-6">
                 <div className="flex justify-between items-center mb-6">
-                  <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Total Final</span>
+                  <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Total</span>
                   <div className="text-right">
-                    <span className="text-3xl text-gold font-black block">{total.toLocaleString()} Kz</span>
+                    <span className="text-4xl text-gold font-black block leading-none">{total.toLocaleString()} Kz</span>
                   </div>
                 </div>
                 <button 
                   onClick={handleFinish}
-                  className="w-full bg-gold text-black py-4 rounded-xl font-black uppercase text-xs tracking-[0.2em] hover:bg-white transition-all flex items-center justify-center gap-3"
+                  className="w-full bg-gold text-black py-5 rounded-2xl font-black uppercase text-xs tracking-[0.2em] hover:bg-white hover:scale-[1.02] transition-all flex items-center justify-center gap-3 shadow-[0_15px_30px_rgba(212,175,55,0.2)]"
                 >
                   <i className="fa-brands fa-whatsapp text-lg"></i>
-                  Enviar WhatsApp
+                  Enviar Pedido
                 </button>
               </div>
             </div>

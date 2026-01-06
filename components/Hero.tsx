@@ -4,53 +4,58 @@ import { CONTACT_INFO } from '../constants';
 
 const Hero: React.FC = () => {
   return (
-    <section id="inicio" className="h-screen relative flex items-center justify-center overflow-hidden bg-[#111]">
-      <div className="absolute inset-0">
+    <section id="inicio" className="h-screen relative flex items-center justify-center overflow-hidden bg-black">
+      {/* Imagem de Fundo Premium - Sem distorções ou elementos fantasmas */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <img 
-          src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1920&q=80" 
-          alt="Churrasco Premium"
-          className="w-full h-full object-cover scale-100 brightness-[0.7]"
+          src="https://images.unsplash.com/photo-1594221708779-9482d5938146?q=80&w=1920&auto=format&fit=crop" 
+          alt="Frango Grelhado Suculento"
+          className="w-full h-full object-cover brightness-[0.5]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-transparent to-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
       </div>
 
       <div className="container mx-auto px-6 text-center z-10 relative">
-        <div className="mb-12 animate-fade-in-up">
-           <div className="inline-flex items-center gap-3 px-6 py-2 border border-gold/50 rounded-full bg-black/80 backdrop-blur-xl shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-             <span className="text-[11px] text-white font-bold tracking-widest uppercase">
-               🚚 Taxa Maianga: <span className="text-gold font-black">{CONTACT_INFO.delivery.maianga}</span> | Outros: <span className="text-gold font-black">{CONTACT_INFO.delivery.others}</span>
+        {/* Banner de Entrega Glassmorphism */}
+        <div className="mb-10 animate-fade-in-up">
+           <div className="inline-flex items-center gap-3 px-6 py-2 border border-white/10 rounded-full bg-black/40 backdrop-blur-xl shadow-2xl">
+             <span className="text-[10px] text-white/90 font-bold tracking-[0.2em] uppercase">
+               🚚 Entrega Maianga: <span className="text-gold font-black">{CONTACT_INFO.delivery.maianga}</span>
              </span>
            </div>
         </div>
 
-        <span className="text-gold font-bold tracking-[0.4em] uppercase text-xs mb-6 block animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-          A Nobreza da Brasa em Luanda
+        <span className="text-gold font-bold tracking-[0.6em] uppercase text-[10px] mb-6 block animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          O Melhor Sabor da Brasa em Luanda
         </span>
-        <h1 className="font-display text-6xl md:text-8xl lg:text-9xl text-white mb-8 leading-tight animate-fade-in-up drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)]" style={{ animationDelay: '0.2s' }}>
-          Sabor de <br />
-          <span className="text-gold">Realeza</span>
+        
+        <h1 className="font-display text-6xl md:text-8xl lg:text-9xl text-white mb-8 leading-tight animate-fade-in-up drop-shadow-2xl" style={{ animationDelay: '0.2s' }}>
+          Reis dos <br />
+          <span className="text-gold">Frangos</span>
         </h1>
-        <div className="menu-underline !w-24 mb-10 animate-fade-in-up shadow-[0_0_25px_rgba(212,175,55,0.6)]" style={{ animationDelay: '0.4s' }}></div>
+
+        <div className="menu-underline !w-20 mb-10 animate-fade-in-up shadow-[0_0_30px_rgba(212,175,55,0.4)]" style={{ animationDelay: '0.4s' }}></div>
+        
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
           <a 
             href="#cardapio" 
-            className="bg-gold text-black px-12 py-4 font-black uppercase text-sm tracking-widest transition-all hover:bg-white hover:text-gold hover:scale-105 active:scale-95 shadow-2xl"
+            className="bg-gold text-black px-12 py-4 font-black uppercase text-sm tracking-widest transition-all hover:bg-white hover:text-gold hover:scale-105 shadow-[0_15px_40px_rgba(0,0,0,0.4)]"
           >
-            Explorar Menu
+            Ver Cardápio
           </a>
           <a 
             href={`https://wa.me/${CONTACT_INFO.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white border-b-2 border-gold pb-1 font-bold uppercase text-sm tracking-widest hover:text-gold transition-all"
+            className="text-white/80 border-b border-gold/50 pb-1 font-bold uppercase text-xs tracking-widest hover:text-gold transition-all"
           >
-            Falar no WhatsApp
+            Fazer Pedido Agora
           </a>
         </div>
       </div>
       
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce text-gold">
-        <i className="fa-solid fa-chevron-down text-2xl"></i>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gold/40 z-10">
+        <i className="fa-solid fa-chevron-down text-xl"></i>
       </div>
     </section>
   );
